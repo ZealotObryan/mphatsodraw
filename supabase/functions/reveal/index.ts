@@ -8,7 +8,7 @@ Deno.serve(async(req)=>{
   const {token}=await req.json();if(typeof token!=="string"||! /^[a-f0-9]{64}$/.test(token))return json({error:"Invalid reveal token."},400,headers);
   const supabase=createClient(Deno.env.get("SUPABASE_URL")!,Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
   const ip=(req.headers.get("x-forwarded-for")||req.headers.get("cf-connecting-ip")||"unknown").split(",")[0].trim();
-  const limited=await supabase.rpc("consume_draw_rate_limit",{p_key:await sha("reveal:"+ip)});if(limited.error)throw limited.error;if(limited.data!==true)return json({error:"Too many reveal attempts. Please wait 15 minutes and try again."},429,headers);
+  const limited=await supabase.rpc("consume_draw_rate_limit",{p_key:await sha("reveal:"+ip),p_limit:150});if(limited.error)throw limited.error;if(limited.data!==true)return json({error:"Too many reveal attempts. Please wait 15 minutes and try again."},429,headers);
   const {data:giver,error}=await supabase.from("draw_participants").select("display_name,recipient_id,draw_id").eq("reveal_token_hash",await sha(token)).single();
   if(error||!giver)return json({error:"This reveal link is invalid or has expired."},404,headers);
   const [{data:recipient,error:recipientErr},{data:draw,error:drawErr}]=await Promise.all([
