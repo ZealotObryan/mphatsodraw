@@ -26,7 +26,8 @@ Deno.serve(async(req)=>{
   const assignment=solve(names.length,blocked);if(!assignment)return json({error:"No valid draw with these exclusions. Remove a restriction and try again."},422,headers);
   const budget=body.budget===""||body.budget==null?null:Number(body.budget);
   if(budget!==null&&(!Number.isFinite(budget)||budget<0))return json({error:"Budget must be a non-negative number."},400,headers);
-  const date=body.date?String(body.date):null;if(date&&!/^\d{4}-\d{2}-\d{2}$/.test(date))return json({error:"Enter a valid exchange date."},400,headers);
+  const date=body.date?String(body.date):null;
+  if(date){const parsed=new Date(date+"T00:00:00Z");if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||Number.isNaN(parsed.getTime())||parsed.toISOString().slice(0,10)!==date)return json({error:"Enter a valid exchange date."},400,headers);}
   const url=Deno.env.get("SUPABASE_URL")!,key=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
   const supabase=createClient(url,key);
   const ip=(req.headers.get("x-forwarded-for")||req.headers.get("cf-connecting-ip")||"unknown").split(",")[0].trim();
