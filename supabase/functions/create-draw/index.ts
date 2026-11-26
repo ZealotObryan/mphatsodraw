@@ -30,7 +30,7 @@ Deno.serve(async(req)=>{
   const url=Deno.env.get("SUPABASE_URL")!,key=Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
   const supabase=createClient(url,key);
   const ip=(req.headers.get("x-forwarded-for")||req.headers.get("cf-connecting-ip")||"unknown").split(",")[0].trim();
-  const limited=await supabase.rpc("consume_draw_rate_limit",{p_key:await sha("create:"+ip)});
+  const limited=await supabase.rpc("consume_draw_rate_limit",{p_key:await sha("create:"+ip),p_limit:5});
   if(limited.error)throw limited.error;if(limited.data!==true)return json({error:"Too many draw attempts. Please wait 15 minutes and try again."},429,headers);
   const tokens=names.map(()=>token()),hashes=await Promise.all(tokens.map(sha));
   const event={title:String(body.event||"Secret Santa").slice(0,120),budget,currency:String(body.currency||"MWK").slice(0,3),draw_date:date,message:String(body.message||"").slice(0,1000)};
