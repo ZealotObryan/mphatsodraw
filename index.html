@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#143f2d">
-<title>MphatsoDraw — Secret Santa, with a Malawi touch</title>
-<meta name="description" content="Make your Secret Santa draw simple, private and full of festive spirit.">
+<title>MphatsoDraw — Secret Santa, with a Malawian touch</title>
+<meta name="description" content="A joyful, private Secret Santa draw with a distinctly Malawian touch.">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 :root{--forest:#123f2d;--forest2:#1c5b3c;--red:#c8494b;--gold:#dcae58;--cream:#fbf8f1;--paper:#fffefa;--ink:#20352a;--muted:#748078;--line:#e9e5dc;--mint:#edf4ec;--shadow:0 18px 60px rgba(22,59,39,.08)}
@@ -34,14 +34,57 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .linkrow-name{overflow-wrap:anywhere}
 .smallbtn:focus-visible,.back:focus-visible{outline:3px solid rgba(220,174,88,.75);outline-offset:3px}
 @media(max-width:520px){.participants{padding:13px}.exclude-box{padding:13px}.result-title{font-size:16px}.notice{font-size:12px}}
+
+/* Phase 4 visual polish — icon sizing, hierarchy and responsive hero */
+.brandmark{color:#fff}
+.brandmark svg{display:block;width:25px;height:25px;flex:0 0 25px;color:#fff;stroke:#fff}
+.trustline{display:inline-flex;max-width:100%;min-height:38px;padding:8px 12px;margin-top:20px;border:1px solid #e4eadd;border-radius:999px;background:rgba(255,255,255,.72);color:#52685a;gap:9px}
+.trustline svg{display:block;width:18px;height:18px;min-width:18px;height:18px;flex:0 0 18px;color:var(--forest);stroke:currentColor}
+.buttons .button{white-space:nowrap;min-height:76px}
+.buttons .button svg{display:block;flex:0 0 auto;width:38px;height:38px;max-width:38px;max-height:38px;stroke:currentColor}
+#create-cta{min-width:214px;padding-inline:20px}
+#create-cta svg{width:44px;height:44px;max-width:44px;max-height:44px}
+#how-cta{min-width:148px;padding-inline:18px}
+#how-cta svg{width:34px;height:34px;max-width:34px;max-height:34px}
+.brandmark:focus-visible,.pill:focus-visible{outline:3px solid rgba(220,174,88,.7);outline-offset:3px}
+.pill{letter-spacing:.05px}
+.hero{grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);gap:clamp(28px,4vw,54px)}
+.hero-copy{min-width:0}
+h1{max-width:660px}
+.lead{max-width:490px}
+.hero-art{min-height:390px}
+.art-label{z-index:2}
+.trustline{line-height:1.35}
+@media(max-width:780px){
+ .hero{grid-template-columns:minmax(0,1fr);gap:25px}
+ .hero-copy{max-width:650px}
+ .hero-art{min-height:330px}
+ .buttons{align-items:stretch}
+ .buttons .button{min-height:68px}
+}
+@media(max-width:520px){
+ .buttons{display:grid;grid-template-columns:1fr;gap:10px}
+ .buttons .button{width:100%;justify-content:center;min-height:64px}
+ #create-cta,#how-cta{min-width:0}
+ #create-cta svg{width:36px;height:36px;max-width:36px;max-height:36px}
+ #how-cta svg{width:30px;height:30px;max-width:30px;max-height:30px}
+ .trustline{font-size:11px}
+ .hero-art{min-height:280px}
+ .pill{font-size:11px}
+}
+@media(min-width:781px) and (max-width:1050px){
+ h1{font-size:clamp(44px,5.5vw,62px);letter-spacing:-3px}
+ .hero{gap:26px}
+ .buttons .button{padding-inline:14px}
+}
 </style>
 </head>
 <body>
 <div class="container">
-<header class="topbar"><div class="brand"><span class="brandmark" id="brand-icon"></span><span>MphatsoDraw</span></div><div class="pill"><span class="flag"></span><span>Malawi-made festive spirit</span></div></header>
+<header class="topbar"><div class="brand"><span class="brandmark" id="brand-icon"></span><span>MphatsoDraw</span></div><div class="pill"><span class="flag"></span><span>Malawian touch</span></div></header>
 <main id="home">
 <section class="hero"><div class="hero-copy"><div class="kicker"><span class="dot"></span> SECRET SANTA, MADE SIMPLE</div><h1>Give a little.<br><span class="h1-accent">Keep the magic.</span></h1><p class="lead">A joyful, no-stress Secret Santa draw. Gather your people, shuffle fairly, and send everyone their own little secret.</p><div class="buttons"><button class="button primary" onclick="openCreate()" id="create-cta"></button><button class="button secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})" id="how-cta"></button></div><div class="trustline" id="trustline"></div></div>
-<div class="hero-art"><div class="art-bubble bubble1"></div><div class="art-bubble bubble2"></div><div class="art-label">Moni, festive season!<small>Christmas, Malawi style ✨</small></div><span class="spark s1">✦</span><span class="spark s2">✧</span><svg class="illustration" viewBox="0 0 420 330" role="img" aria-label="Festive gift boxes with a green bow"><ellipse cx="211" cy="294" rx="145" ry="18" fill="#9eb5a0" opacity=".3"/><path d="M116 173h190v116H116z" fill="#c8494b"/><path d="M116 173h190v20H116z" fill="#a9353a"/><path d="M194 173h34v116h-34z" fill="#f2c96e"/><path d="M103 151h216v35H103z" rx="10" fill="#e5b65e"/><path d="M194 151h34v35h-34z" fill="#f9df9b"/><path d="M192 152c-61-54-77-4-28 14 17 6 28-1 28-14m34 0c60-55 78-4 28 14-18 6-28-1-28-14" fill="none" stroke="#1d6945" stroke-width="18" stroke-linecap="round"/><path d="M196 157c10-17 20-17 30 0-11 15-19 15-30 0" fill="#26784f"/><path d="M153 94h116v78H153z" fill="#2e8156"/><path d="M153 94h116v16H153z" fill="#216c45"/><path d="M198 94h27v78h-27z" fill="#f3cc77"/><path d="M145 82h132v25H145z" fill="#f3cc77"/><path d="M198 82h27v25h-27z" fill="#ffe2a0"/><path d="M195 83c-38-42-54-10-24 7 13 7 24 1 24-7m33 0c40-43 55-10 24 7-13 7-24 1-24-7" fill="none" stroke="#c8494b" stroke-width="12" stroke-linecap="round"/><path d="M195 85c8-12 18-12 31 0-10 11-20 11-31 0" fill="#db5a5b"/><g fill="#fff7dc"><circle cx="88" cy="131" r="5"/><circle cx="323" cy="133" r="5"/><circle cx="334" cy="207" r="4"/><circle cx="84" cy="226" r="4"/></g><path d="M78 104l8 9-8 9-8-9zM344 91l7 8-7 8-7-8z" fill="#dcae58"/></svg><div class="art-footer">A little Malawi · A lot of joy</div></div></section>
+<div class="hero-art"><div class="art-bubble bubble1"></div><div class="art-bubble bubble2"></div><div class="art-label">Moni, festive season!<small>Christmas, with a Malawian touch ✨</small></div><span class="spark s1">✦</span><span class="spark s2">✧</span><svg class="illustration" viewBox="0 0 420 330" role="img" aria-label="Festive gift boxes with a green bow"><ellipse cx="211" cy="294" rx="145" ry="18" fill="#9eb5a0" opacity=".3"/><path d="M116 173h190v116H116z" fill="#c8494b"/><path d="M116 173h190v20H116z" fill="#a9353a"/><path d="M194 173h34v116h-34z" fill="#f2c96e"/><path d="M103 151h216v35H103z" rx="10" fill="#e5b65e"/><path d="M194 151h34v35h-34z" fill="#f9df9b"/><path d="M192 152c-61-54-77-4-28 14 17 6 28-1 28-14m34 0c60-55 78-4 28 14-18 6-28-1-28-14" fill="none" stroke="#1d6945" stroke-width="18" stroke-linecap="round"/><path d="M196 157c10-17 20-17 30 0-11 15-19 15-30 0" fill="#26784f"/><path d="M153 94h116v78H153z" fill="#2e8156"/><path d="M153 94h116v16H153z" fill="#216c45"/><path d="M198 94h27v78h-27z" fill="#f3cc77"/><path d="M145 82h132v25H145z" fill="#f3cc77"/><path d="M198 82h27v25h-27z" fill="#ffe2a0"/><path d="M195 83c-38-42-54-10-24 7 13 7 24 1 24-7m33 0c40-43 55-10 24 7-13 7-24 1-24-7" fill="none" stroke="#c8494b" stroke-width="12" stroke-linecap="round"/><path d="M195 85c8-12 18-12 31 0-10 11-20 11-31 0" fill="#db5a5b"/><g fill="#fff7dc"><circle cx="88" cy="131" r="5"/><circle cx="323" cy="133" r="5"/><circle cx="334" cy="207" r="4"/><circle cx="84" cy="226" r="4"/></g><path d="M78 104l8 9-8 9-8-9zM344 91l7 8-7 8-7-8z" fill="#dcae58"/></svg><div class="art-footer">A little Malawi · A lot of joy</div></div></section>
 <section class="feature-row"><article class="feature"><div class="feature-icon" id="f1"></div><div><h3>Private by design</h3><p>Everyone gets their own secret recipient reveal link.</p></div></article><article class="feature"><div class="feature-icon" id="f2"></div><div><h3>WhatsApp-ready</h3><p>Share each reveal directly with your people.</p></div></article><article class="feature"><div class="feature-icon" id="f3"></div><div><h3>Made for Malawi</h3><p>Kwacha budgets, local flair and festive warmth.</p></div></article></section>
 <section class="how" id="how"><div class="section-head"><div class="kicker"><span class="dot"></span> EASY AS 1 · 2 · 3</div><h2>From names to surprises</h2></div><div class="steps"><article class="step"><span class="stepnum">01 — GATHER</span><h3>Add your people</h3><p>Set your exchange details, budget and date. Add three or more participants.</p></article><article class="step"><span class="stepnum">02 — SHUFFLE</span><h3>Make it fair</h3><p>Each person gets one recipient, no self-draws, and optional exclusions.</p></article><article class="step"><span class="stepnum">03 — REVEAL</span><h3>Keep it secret</h3><p>Send each person their unique link. The surprise stays with them.</p></article></div></section>
 </main>
@@ -53,7 +96,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div class="exclude-box"><div class="ex-head" id="exclude-title"></div><p class="explain">Add couples, siblings or people who shouldn't draw each other. Restrictions apply both ways.</p><div class="exclude-row"><select id="ea" aria-label="First person in exclusion pair"></select><select id="eb" aria-label="Second person in exclusion pair"></select><button class="smallbtn" onclick="addEx()" id="add-ex"></button></div><div id="chips" class="chips"></div></div>
 <button class="button primary full" onclick="draw()" id="draw-btn"></button><div id="result" class="result hidden" aria-live="polite"></div></div></section>
 <section id="reveal" class="reveal-shell hidden" aria-live="polite" aria-atomic="true"></section>
-<footer class="footer"><span class="flag"></span> <span class="footer-brand">MphatsoDraw</span> · Shuffle the names. Keep the magic.<br>Created with a Malawi touch by <strong>O'Brien Sibande</strong> · © <span id="year"></span></footer>
+<footer class="footer"><span class="flag"></span> <span class="footer-brand">MphatsoDraw</span> · Shuffle the names. Keep the magic.<br>Created with a Malawian touch by <strong>O'Brien Sibande</strong> · © <span id="year"></span></footer>
 </div><div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 <script>
 const SUPABASE_FUNCTIONS_URL='https://oxoateqbfaebveavmcmf.supabase.co/functions/v1';
