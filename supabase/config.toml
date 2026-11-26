@@ -1,0 +1,5 @@
+[functions.create-draw]
+verify_jwt = false
+
+[functions.reveal]
+verify_jwt = false
